@@ -87,7 +87,7 @@ void	ft_imprimir_nombre(char *a)
 					}
 					else
 					{
-						printf("%s ", dcc_teens[(a[n] - '0') - 1]);
+						printf("%s ", dcc_teens[(a[n - 1] - '0') - 1]);
 						n--;
 						if (n / 3 < 0)
 						{
@@ -100,7 +100,7 @@ void	ft_imprimir_nombre(char *a)
 				}
 				else
 				{
-					printf("%s ", dcc_tens[(a[n - 1] - '0') - 1]);
+					printf("%s ", dcc_tens[(a[n] - '0') - 1]);
 					n--;
 				}
 			}
@@ -121,7 +121,7 @@ void	ft_imprimir_nombre(char *a)
 
 int	main(void)
 {
-	char a[] = "1223427486";
+	char a[] = "8323427486";
 	ft_imprimir_nombre(a);
 	return (0);
 }
