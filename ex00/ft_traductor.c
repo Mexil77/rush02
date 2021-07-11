@@ -1,72 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-int	ft_print_unid(char *unid[], char *prins[], char a[], int n)
-{
-	printf("%s ", unid[a[n] - '0']);
-	if (n / 3 > 0)
-	{
-		printf("%s ", prins[(n / 3) - 1]);
-		n--;
-	}
-	else
-		n = -1;
-	return (n);
-}
-
-int	ft_print_dec_ten(char a[], char *tens[], char *prins[], int n)
-{
-	printf("%s ", tens[(a[n] - '0') - 1]);
-	n--;
-	if (n / 3 > 0)
-	{
-		printf("%s ", prins[(n / 3) - 1]);
-		n--;
-	}
-	else
-		n = -1;
-}
-
-int ft_print_dec(char a[], char *tens[], char *prins[], char *teens[], int n)
-{
-	if (a[n] == '1')
-	{
-		if (a[n - 1] == '0')
-		{
-			n = ft_print_dec_ten(a, tens, prins, n);
-		}
-		else
-		{
-			printf("%s ", teens[(a[n - 1] - '0') - 1]);
-			n--;
-			if (n / 3 > 0)
-			{
-				printf("%s ", prins[(n / 3) - 1]);
-				n--;
-			}
-			else
-				n = -1;
-		}
-	}
-	else
-	{
-		printf("%s ", tens[(a[n] - '0') - 1]);
-		n--;
-	}
-	return (n);
-}
-
-int	ft_print_esp(char a[], char *prins[], int n)
-{
-	if (n % 3 == 0 && n / 3 > 0 && (a[n + 1] != '0' || a[n + 2] != '0'))
-	{
-		printf("%s ", prins[(n / 3) - 1]);
-	}
-	n--;
-	return (n);
-}
-
-void	ft_imprimir_nombre(char *a)
+void	ft_traductor(char *a)
 {
 	int		n;
 	int		cifra_terna;
@@ -120,7 +52,11 @@ void	ft_imprimir_nombre(char *a)
 	{
 		if (a[n] == '0')
 		{
-			ft_print_esp(a, dcc_prins, n);
+			if (n % 3 == 0 && n / 3 > 0 && (a[n + 1] != '0' || a[n + 2] != '0'))
+			{
+				printf("%s ", dcc_prins[(n / 3) - 1]);
+			}
+			n--;
 		}
 		else
 		{
@@ -131,18 +67,51 @@ void	ft_imprimir_nombre(char *a)
 				n--;
 			}
 			if (cifra_terna == 1)
-				n = ft_print_dec(a, dcc_tens, dcc_prins, dcc_teens, n);
+			{
+				if (a[n] == '1')
+				{
+					if (a[n - 1] == '0')
+					{
+						printf("%s ", dcc_tens[(a[n] - '0') - 1]);
+						n--;
+						if (n / 3 > 0)
+						{
+							printf("%s ", dcc_prins[(n / 3) - 1]);
+							n--;
+						}
+						else
+							break ;
+					}
+					else
+					{
+						printf("%s ", dcc_teens[(a[n - 1] - '0') - 1]);
+						n--;
+						if (n / 3 > 0)
+						{
+							printf("%s ", dcc_prins[(n / 3) - 1]);
+							n--;
+						}
+						else
+							break ;
+					}
+				}
+				else
+				{
+					printf("%s ", dcc_tens[(a[n] - '0') - 1]);
+					n--;
+				}
+			}
 			if (cifra_terna == 0)
-				n = ft_print_unid(dcc_unid, dcc_prins, a, n);
+			{
+				printf("%s ", dcc_unid[a[n] - '0']);
+				if (n / 3 > 0)
+				{
+					printf("%s ", dcc_prins[(n / 3) - 1]);
+					n--;
+				}
+				else
+					break ;
+			}
 		}
 	}
 }
-
-int	main(void)
-{
-	char a[] = "9220051216";
-	ft_imprimir_nombre(a);
-	return (0);
-}
-
-
